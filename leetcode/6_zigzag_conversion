@@ -1,0 +1,43 @@
+
+
+char * convert(char * s, int numRows){
+    
+    char *convert_string;
+    int i = 0, j = 0, idx = 0, v_size = 0, s_len=0;
+    
+    if (*s == 0 || numRows == 0)
+        return NULL;
+    
+    if (numRows == 1)
+        return s;
+    
+    while(*(s+i)){
+        s_len++;
+        i++;
+    }
+    
+    convert_string = malloc(s_len+1 * sizeof(char));
+    
+    v_size = 2*numRows-2;
+    for (i = 0 ; i < numRows; i++){
+        // for ( j = i ; *(s+j) ; j+=v_size){
+        for ( j = i ; j < s_len ; j += v_size){
+            
+            *(convert_string+idx) = *(s+j);
+            
+            idx++;
+            
+            // if ( i != 0 && i != numRows-1 && *(s+(j -i + v_size-i))){
+            if ( i != 0 && i != numRows-1 && (j -i + v_size-i) < s_len){
+                
+                *(convert_string+idx) = *(s+(j -i + v_size-i));
+                
+                idx++;
+            }
+            
+        }
+    }
+    *(convert_string+idx) = '\0';
+    return convert_string;
+    
+}
