@@ -13,9 +13,9 @@ int reverse(int x){
     if(is_neg)
         tmp_num*=-1;
     
-    while(!(tmp_num % 10)){
-        tmp_num /= 10;
-    }
+    // while(!(tmp_num % 10)){
+    //     tmp_num /= 10;
+    // }
     
     while(tmp_num > 0){
         if (rev_num > (0x7fffffff/10))
