@@ -63,6 +63,75 @@ double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Si
     return (m1_val+m2_val)/2;
 }
 
+
+//v2
+double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size){
+
+    
+    int cntMid=0;
+    int mid1,mid2;
+    int idx1,idx2;
+    double val;
+    idx1 = 0; idx2=0;
+    int i;
+    int tmp;
+    
+    if((nums1Size+nums2Size)<2){
+        return nums1Size > nums2Size? nums1[0] : nums2[0];
+    }
+    
+    
+    if((nums1Size+nums2Size)%2 == 0){
+        mid1 = (nums1Size+nums2Size)/2;
+        mid2 = mid1+1;
+    }else{
+        mid1 = mid2 = (nums1Size+nums2Size)/2 +1;
+    }
+       
+    while(1){
+        if(cntMid == mid1 && mid1 == mid2){
+            break;
+        }else if(cntMid == mid1 && mid1 != mid2){
+            if(idx1 > nums1Size-1){
+                val+= nums2[idx2];
+            }else if(idx2 >nums2Size-1){
+                val+= nums1[idx1];
+            }else{
+                tmp = nums1[idx1] < nums2[idx2] ? nums1[idx1] : nums2[idx2];
+                val+=tmp;
+            }
+            val/=2;
+            break;
+        }
+        
+        if(idx1 > nums1Size-1){
+            val = nums2[idx2];
+            idx2++;
+            cntMid++;
+            continue;
+        }
+        
+        if(idx2 > nums2Size-1){
+            val = nums1[idx1];
+            idx1++;
+            cntMid++;
+            continue;
+        }
+        
+        if(nums1[idx1] < nums2[idx2]){
+            val = nums1[idx1];
+            idx1++;
+        }else{
+            val = nums2[idx2];
+            idx2++;
+        }
+        cntMid++;
+    }
+    
+    
+    return val;
+}
+
 int main(){
     int nums1[4] = {1,3};
     int nums2[2] = {2};
